@@ -23,7 +23,8 @@ class rotvec():
     def draw_me(self):
         self.far_end = self.centre.protrude(self.amplitude,self.angle())
         pygame.draw.line(self.screen,(255,0,0),(self.centre.x,self.centre.y),(self.far_end.x,self.far_end.y),2)
-        pygame.draw.circle(self.screen,(0,0,0),(int(self.centre.x),int(self.centre.y)),5)
+        if self.amplitude > 1:
+            pygame.draw.circle(self.screen,(0,0,255),(int(self.centre.x),int(self.centre.y)),int(self.amplitude),1)
         if self.far_end_draw:
             self.points_coll.append(self.far_end)
             for i in range(2,len(self.points_coll)):
