@@ -11,7 +11,7 @@ def run_draw():
     screen_value = 1000
     screen = pygame.display.set_mode([screen_value,screen_value])
     run = True
-    my_centre = vector(500,100)
+    my_centre = vector(400,100)
     if len(sys.argv) >1:
         shape = get_points(sys.argv[1])
     else:

@@ -70,7 +70,7 @@ class epicycles():
             self.rotvecs[0].update_me()
             for item in self.archived:
                     self.rotvecs[0].draw_polygon(item)
-        if len(self.rotvecs[0].points_coll) == self.size:
+        if len(self.rotvecs[0].points_coll) == self.size+5:#To close contours smoothly +1 would have been enough
             self.archived.append(self.rotvecs[0].points_coll)
             self.rotvecs[0].points_coll = []
             self.current_assign +=1
