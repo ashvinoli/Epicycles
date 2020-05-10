@@ -1,4 +1,5 @@
 import math
+
 class vector():
     def __init__(self,x,y):
         self.x = x
@@ -9,6 +10,9 @@ class vector():
         y = self.y + other.y
         return vector(x,y)
 
+    def __eq__(self,other):
+        return True  if int(self.x) == int(other.x) and int(self.y) == int(other.y) else False
+        
     def magnitude(self):
         return (self.x**2+self.y**2)**(1/2)
 

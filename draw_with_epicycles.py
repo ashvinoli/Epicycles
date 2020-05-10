@@ -16,7 +16,7 @@ def run_draw():
         shape = get_points(sys.argv[1])
     else:
         shape = get_points("a.png")
-    dft_coeffs = np.fft.fft(shape)
+    dft_coeffs = [np.fft.fft(item) for item in shape ]
     circles = epicycles(my_centre,screen,dft_coeffs)
     circles.assign_params()
     while (run):
