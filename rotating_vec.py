@@ -52,19 +52,19 @@ class epicycles():
         
     def assign_params(self):
         for i in range(self.size):
-            draw = True if i==0 else False
             temp_vec = vector(self.amplitudes[i].real,self.amplitudes[i].imag)
-            temp = rotvec(self.screen,self.centre,temp_vec.magnitude()/self.size,i/self.size,far_end_draw = draw,offset = temp_vec.argument())
+            temp = rotvec(self.screen,self.centre,temp_vec.magnitude()/self.size,i/self.size,offset = temp_vec.argument())
             self.rotvecs.append(temp)
-        self.rotvecs.reverse()
+        self.rotvecs = sorted(self.rotvecs,key = lambda x:x.frequency)
+        self.rotvecs[-1].far_end_draw = True
 
     def draw_them_all(self):
-        for i in range(0,self.size):
-            if i>0:
-                self.rotvecs[i].centre = self.rotvecs[i-1].far_end
+        self.rotvecs[0].far_end = self.rotvecs[0].centre.protrude(self.rotvecs[0].amplitude,self.rotvecs[0].angle())
+        for i in range(1,self.size):
+            self.rotvecs[i].centre = self.rotvecs[i-1].far_end
             self.rotvecs[i].draw_me()
             self.rotvecs[i].update_me()
-            
+
         for item in self.archived:
             self.rotvecs[-1].draw_polygon(item)
         if len(self.rotvecs[-1].points_coll) == self.size+5:#To close contours smoothly +1 would have been enough
