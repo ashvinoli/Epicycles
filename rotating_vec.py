@@ -56,23 +56,19 @@ class epicycles():
             temp_vec = vector(self.amplitudes[i].real,self.amplitudes[i].imag)
             temp = rotvec(self.screen,self.centre,temp_vec.magnitude()/self.size,i/self.size,far_end_draw = draw,offset = temp_vec.argument())
             self.rotvecs.append(temp)
+        self.rotvecs.reverse()
 
     def draw_them_all(self):
-        if len(self.rotvecs) >1:
-            self.rotvecs[1].draw_me()
-            self.rotvecs[1].update_me()
-            for i in range(2,self.size):
+        for i in range(0,self.size):
+            if i>0:
                 self.rotvecs[i].centre = self.rotvecs[i-1].far_end
-                self.rotvecs[i].draw_me()
-                self.rotvecs[i].update_me()
-            self.rotvecs[0].centre = self.rotvecs[self.size-1].far_end
-            self.rotvecs[0].draw_me()
-            self.rotvecs[0].update_me()
-            for item in self.archived:
-                    self.rotvecs[0].draw_polygon(item)
-        if len(self.rotvecs[0].points_coll) == self.size+5:#To close contours smoothly +1 would have been enough
-            self.archived.append(self.rotvecs[0].points_coll)
-            self.rotvecs[0].points_coll = []
+            self.rotvecs[i].draw_me()
+            self.rotvecs[i].update_me()
+            
+        for item in self.archived:
+            self.rotvecs[-1].draw_polygon(item)
+        if len(self.rotvecs[-1].points_coll) == self.size+5:#To close contours smoothly +1 would have been enough
+            self.archived.append(self.rotvecs[-1].points_coll)
             self.current_assign +=1
             if self.current_assign == self.amp_count:
                 self.current_assign = 0
